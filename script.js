@@ -1,6 +1,5 @@
 let data = JSON.parse(localStorage.getItem("expenseData")) || {};
 
-// Load
 window.onload = function () {
   if (Object.keys(data).length === 0) {
     document.getElementById("setup").style.display = "block";
@@ -10,81 +9,66 @@ window.onload = function () {
   }
 };
 
-// Save user
 function saveUser() {
   let name = document.getElementById("name").value.trim();
-
-  if (!name) {
-    alert("Enter name");
-    return;
-  }
+  if (!name) return alert("Enter name");
 
   if (!data[name]) data[name] = {};
-
   localStorage.setItem("expenseData", JSON.stringify(data));
   location.reload();
 }
 
-// Load users
 function loadUsers() {
-  let userSelect = document.getElementById("userSelect");
-  userSelect.innerHTML = "";
+  let u = document.getElementById("userSelect");
+  u.innerHTML = "";
 
   Object.keys(data).forEach(user => {
-    userSelect.add(new Option(user, user));
+    u.add(new Option(user, user));
   });
 
-  showExpenses();
+  showData();
 }
 
-// Add expense
 function addExpense() {
-  let user = document.getElementById("userSelect").value;
-  let month = document.getElementById("monthSelect").value;
-  let date = document.getElementById("dateSelect").value;
+  let user = userSelect.value;
+  let month = monthSelect.value;
+  let date = document.getElementById("date").value;
   let reason = document.getElementById("reason").value;
-  let amount = document.getElementById("expense").value;
+  let amount = document.getElementById("amount").value;
 
-  if (!date || !reason || !amount) {
-    alert("Fill all fields");
-    return;
-  }
+  if (!date || !reason || !amount) return alert("Fill all");
 
-  if (!data[user][month]) data[user][month] = {};
-  if (!data[user][month][date]) data[user][month][date] = [];
+  if (!data[user][month]) data[user][month] = [];
 
-  data[user][month][date].push({
-    reason,
-    amount: Number(amount)
+  data[user][month].push({
+    date, reason, amount: Number(amount)
   });
 
   localStorage.setItem("expenseData", JSON.stringify(data));
 
   document.getElementById("reason").value = "";
-  document.getElementById("expense").value = "";
+  document.getElementById("amount").value = "";
 
-  showExpenses();
+  showData();
 }
 
-// Show expenses
-function showExpenses() {
-  let user = document.getElementById("userSelect").value;
-  let month = document.getElementById("monthSelect").value;
-  let date = document.getElementById("dateSelect").value;
+function showData() {
+  let user = userSelect.value;
+  let month = monthSelect.value;
 
   let list = document.getElementById("list");
   let total = 0;
 
   list.innerHTML = "";
 
-  if (data[user] && data[user][month] && data[user][month][date]) {
-    data[user][month][date].forEach(item => {
-      total += item.amount;
+  if (data[user][month]) {
+    data[user][month].forEach(e => {
+      total += e.amount;
 
       let li = document.createElement("li");
       li.innerHTML = `
-        <span>${item.reason}</span>
-        <strong>${item.amount} BDT</strong>
+        📅 ${e.date} <br>
+        ${e.reason} - ${e.amount} BDT
       `;
       list.appendChild(li);
     });
@@ -93,21 +77,15 @@ function showExpenses() {
   document.getElementById("total").innerText = total + " BDT";
 }
 
-// Reset
 function resetAll() {
-  let pass = prompt("Enter password:");
-
+  let pass = prompt("Password?");
   if (pass === "0707") {
-    if (confirm("Delete all data?")) {
-      localStorage.removeItem("expenseData");
-      location.reload();
-    }
+    localStorage.removeItem("expenseData");
+    location.reload();
   } else {
     alert("Wrong password");
   }
 }
 
-// Events
-document.getElementById("userSelect").onchange = showExpenses;
-document.getElementById("monthSelect").onchange = showExpenses;
-document.getElementById("dateSelect").onchange = showExpenses;
+userSelect.onchange = showData;
+monthSelect.onchange = showData;
