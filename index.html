@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Asif Expense Tracker Pro</title>
+  <title>Expense Tracker Pro</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -9,56 +9,48 @@
 
 <div class="container">
 
-  <h1>💎 Expense Tracker</h1>
+  <h1>💰 Expense Tracker</h1>
 
-  <!-- Setup -->
   <div id="setup" class="card">
-    <h2>First Setup</h2>
+    <h2>Setup</h2>
     <input id="name" placeholder="Your name">
     <button onclick="saveUser()">Start</button>
   </div>
 
-  <!-- Main -->
   <div id="main" style="display:none;">
 
-    <div class="card top-bar">
+    <div class="card">
       <select id="userSelect"></select>
+
       <select id="monthSelect">
-        <option>January</option>
-        <option>February</option>
-        <option>March</option>
-        <option>April</option>
-        <option>May</option>
-        <option>June</option>
-        <option>July</option>
-        <option>August</option>
-        <option>September</option>
-        <option>October</option>
-        <option>November</option>
-        <option>December</option>
+        <option>January</option><option>February</option>
+        <option>March</option><option>April</option>
+        <option>May</option><option>June</option>
+        <option>July</option><option>August</option>
+        <option>September</option><option>October</option>
+        <option>November</option><option>December</option>
       </select>
-
-      <input type="date" id="dateSelect">
-
-      <button class="reset" onclick="resetAll()">Reset</button>
     </div>
 
     <div class="card">
       <h2>Add Expense</h2>
-      <input id="reason" placeholder="Reason (Food, Transport)">
-      <input id="expense" type="number" placeholder="Amount (BDT)">
+      <input type="date" id="date">
+      <input id="reason" placeholder="Reason">
+      <input id="amount" type="number" placeholder="Amount">
       <button onclick="addExpense()">Add</button>
     </div>
 
-    <div class="card total-card">
-      <h2>Total (Selected Date)</h2>
+    <div class="card total">
+      <h2>Monthly Total</h2>
       <h1 id="total">0 BDT</h1>
     </div>
 
     <div class="card">
-      <h2>Daily Expenses</h2>
+      <h2>All Expenses (Month)</h2>
       <ul id="list"></ul>
     </div>
+
+    <button class="reset" onclick="resetAll()">Reset</button>
 
   </div>
 
