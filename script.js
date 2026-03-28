@@ -1,5 +1,6 @@
 let data = JSON.parse(localStorage.getItem("expenseData")) || {};
 
+// Load
 window.onload = function () {
   if (Object.keys(data).length === 0) {
     document.getElementById("setup").style.display = "block";
@@ -9,9 +10,15 @@ window.onload = function () {
   }
 };
 
+// Save user
 function saveUser() {
-  let name = document.getElementById("name").value;
-  let month = document.getElementById("month").value;
+  let name = document.getElementById("name").value.trim();
+  let month = document.getElementById("month").value.trim();
+
+  if (!name || !month) {
+    alert("Enter name & month");
+    return;
+  }
 
   if (!data[name]) data[name] = {};
   if (!data[name][month]) data[name][month] = [];
@@ -20,18 +27,20 @@ function saveUser() {
   location.reload();
 }
 
+// Load users
 function loadUsers() {
   let userSelect = document.getElementById("userSelect");
   userSelect.innerHTML = "";
 
   Object.keys(data).forEach(user => {
-    let opt = `<option value="${user}">${user}</option>`;
-    userSelect.innerHTML += opt;
+    let option = new Option(user, user);
+    userSelect.add(option);
   });
 
   loadMonths();
 }
 
+// Load months
 function loadMonths() {
   let user = document.getElementById("userSelect").value;
   let monthSelect = document.getElementById("monthSelect");
@@ -39,24 +48,39 @@ function loadMonths() {
   monthSelect.innerHTML = "";
 
   Object.keys(data[user]).forEach(month => {
-    let opt = `<option value="${month}">${month}</option>`;
-    monthSelect.innerHTML += opt;
+    let option = new Option(month, month);
+    monthSelect.add(option);
   });
 
   showExpenses();
 }
 
+// Add expense
 function addExpense() {
   let user = document.getElementById("userSelect").value;
   let month = document.getElementById("monthSelect").value;
-  let expense = document.getElementById("expense").value;
+  let reason = document.getElementById("reason").value;
+  let amount = document.getElementById("expense").value;
 
-  data[user][month].push(Number(expense));
+  if (!reason || !amount) {
+    alert("Enter reason and amount");
+    return;
+  }
+
+  data[user][month].push({
+    reason: reason,
+    amount: Number(amount)
+  });
 
   localStorage.setItem("expenseData", JSON.stringify(data));
+
+  document.getElementById("reason").value = "";
+  document.getElementById("expense").value = "";
+
   showExpenses();
 }
 
+// Show expenses
 function showExpenses() {
   let user = document.getElementById("userSelect").value;
   let month = document.getElementById("monthSelect").value;
@@ -66,13 +90,38 @@ function showExpenses() {
 
   list.innerHTML = "";
 
-  data[user][month].forEach(e => {
-    total += e;
-    list.innerHTML += `<li>${e} BDT</li>`;
+  data[user][month].forEach(item => {
+    total += item.amount;
+
+    let li = document.createElement("li");
+    li.innerHTML = `
+      <span>${item.reason}</span>
+      <strong>${item.amount} BDT</strong>
+    `;
+    list.appendChild(li);
   });
 
-  document.getElementById("total").innerText = total;
+  document.getElementById("total").innerText = total + " BDT";
 }
 
+// 🔐 Password Protected Reset
+function resetAll() {
+  let password = prompt("Enter password to reset all data:");
+
+  if (password === null) return;
+
+  if (password === "0707") {
+    let confirmReset = confirm("⚠️ All data will be permanently deleted. Continue?");
+    
+    if (confirmReset) {
+      localStorage.removeItem("expenseData");
+      location.reload();
+    }
+  } else {
+    alert("❌ Wrong password! Data not deleted.");
+  }
+}
+
+// Events
 document.getElementById("userSelect").onchange = loadMonths;
 document.getElementById("monthSelect").onchange = showExpenses;
