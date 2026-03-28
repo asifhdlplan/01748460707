@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Asif Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>💰 Expense Tracker</h1>
+
+<div id="setup">
+  <h3>First Time Setup</h3>
+  <input id="name" placeholder="Enter your name">
+  <input id="month" placeholder="Enter month (e.g. March)">
+  <button onclick="saveUser()">Save</button>
+</div>
+
+<div id="main" style="display:none;">
+  <h3>Select Profile</h3>
+  
+  <select id="userSelect"></select>
+  <select id="monthSelect"></select>
+
+  <h3>Add Expense</h3>
+  <input id="expense" placeholder="Enter amount">
+  <button onclick="addExpense()">Add</button>
+
+  <h2>Total: <span id="total">0</span> BDT</h2>
+
+  <ul id="list"></ul>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
