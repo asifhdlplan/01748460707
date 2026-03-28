@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Asif Expense Tracker</title>
+  <title>Asif Expense Tracker Pro</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>💰 Expense Tracker</h1>
+<div class="container">
 
-<div id="setup">
-  <h3>First Time Setup</h3>
-  <input id="name" placeholder="Enter your name">
-  <input id="month" placeholder="Enter month (e.g. March)">
-  <button onclick="saveUser()">Save</button>
-</div>
+  <h1>💎 Expense Tracker Pro</h1>
 
-<div id="main" style="display:none;">
-  <h3>Select Profile</h3>
-  
-  <select id="userSelect"></select>
-  <select id="monthSelect"></select>
+  <!-- First Setup -->
+  <div id="setup" class="card">
+    <h2>👤 First Time Setup</h2>
+    <input id="name" placeholder="Enter your name">
+    <input id="month" placeholder="Enter month (March)">
+    <button onclick="saveUser()">Start Tracking</button>
+  </div>
 
-  <h3>Add Expense</h3>
-  <input id="expense" placeholder="Enter amount">
-  <button onclick="addExpense()">Add</button>
+  <!-- Main App -->
+  <div id="main" style="display:none;">
 
-  <h2>Total: <span id="total">0</span> BDT</h2>
+    <div class="top-bar card">
+      <select id="userSelect"></select>
+      <select id="monthSelect"></select>
+      <button class="reset" onclick="resetAll()">Reset</button>
+    </div>
 
-  <ul id="list"></ul>
+    <div class="card input-card">
+      <h2>➕ Add Expense</h2>
+      <input id="reason" placeholder="Expense reason (Food, Transport)">
+      <input id="expense" type="number" placeholder="Amount (BDT)">
+      <button onclick="addExpense()">Add Expense</button>
+    </div>
+
+    <div class="card total-card">
+      <h2>Total Expense</h2>
+      <h1 id="total">0 BDT</h1>
+    </div>
+
+    <div class="card list-card">
+      <h2>📋 Expense List</h2>
+      <ul id="list"></ul>
+    </div>
+
+  </div>
+
 </div>
 
 <script src="script.js"></script>
