@@ -1,77 +1,52 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0f172a, #020617);
+  font-family: Arial;
+  background: #0f172a;
   color: white;
 }
 
-/* Container */
 .container {
   max-width: 600px;
   margin: auto;
   padding: 15px;
 }
 
-/* Card */
 .card {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  border-radius: 14px;
+  background: #1e293b;
   padding: 15px;
-  margin: 15px 0;
+  border-radius: 10px;
+  margin: 10px 0;
 }
 
-/* Inputs */
 input, select {
   width: 100%;
-  padding: 14px;
-  margin: 8px 0;
-  border-radius: 10px;
+  padding: 12px;
+  margin: 6px 0;
+  border-radius: 8px;
   border: none;
-  font-size: 16px;
 }
 
-/* Buttons */
 button {
   width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 10px;
+  padding: 12px;
   background: #22c55e;
   color: white;
-  font-size: 16px;
-  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
 }
 
 .reset {
   background: #ef4444;
 }
 
-/* Total */
-.total-card h1 {
-  font-size: 32px;
+.total h1 {
+  font-size: 28px;
   text-align: center;
 }
 
-/* List */
-ul {
-  list-style: none;
-  padding: 0;
-}
-
 li {
-  display: flex;
-  justify-content: space-between;
-  background: rgba(255,255,255,0.08);
-  padding: 12px;
+  background: #334155;
   margin: 6px 0;
-  border-radius: 10px;
-  font-size: 15px;
-}
-
-/* Desktop */
-@media(min-width:768px){
-  .container {
-    max-width: 800px;
-  }
+  padding: 10px;
+  border-radius: 8px;
 }
